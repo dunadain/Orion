@@ -67,7 +67,7 @@ export default tseslint.config(
                     trailingUnderscore: 'forbid',
                 },
                 {
-                    selector: 'interface', // 禁止interface以I开头
+                    selector: 'interface', // interfaces starting with "I" are forbidden
                     format: ['PascalCase'],
                     custom: {
                         regex: '^I[A-Z]',
