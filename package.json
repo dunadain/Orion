@@ -4,7 +4,8 @@
   "type": "module",
   "devDependencies": {
     "@types/bun": "latest",
-    "eslint": "^8.57.0"
+    "eslint": "^8.57.0",
+    "typescript-eslint": "^7.4.0"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
