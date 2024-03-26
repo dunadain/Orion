@@ -22,8 +22,8 @@
     "noImplicitThis": true,
 
     // Some stricter flags (disabled by default)
-    "noUnusedLocals": false,
-    "noUnusedParameters": false,
+    // "noUnusedLocals": false,
+    // "noUnusedParameters": false,
     "noPropertyAccessFromIndexSignature": false
   }
 }
