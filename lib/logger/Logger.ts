@@ -10,6 +10,7 @@ import DailyRotateFile from 'winston-daily-rotate-file';
 //         new transports.File({ filename: './logs/combined.log' }),
 //     ],
 // });
+const isProduction = process.env.NODE_ENV === 'production';
 
 const errOption = {
     level: 'error',
@@ -28,10 +29,9 @@ const errOption = {
 };
 
 const logger = createLogger({
-    level: 'debug',
     transports: [
         new DailyRotateFile({
-            level: 'debug',
+            level: isProduction ? 'info' : 'debug',
             dirname: 'logs',
             filename: 'combined-%DATE%.log',
             maxSize: '10m',
@@ -51,7 +51,7 @@ const logger = createLogger({
     exceptionHandlers: [new DailyRotateFile(errOption)],
 });
 
-if (process.env.NODE_ENV !== 'production') {
+if (!isProduction) {
     logger.add(
         new transports.Console({
             format: format.combine(
