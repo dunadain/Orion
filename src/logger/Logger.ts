@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/naming-convention */
 import { createLogger, format, transports } from 'winston';
-import * as DailyRotateFile from 'winston-daily-rotate-file';
+import DailyRotateFile from 'winston-daily-rotate-file';
 
 // const logger = createLogger({
 //     level: 'debug',
@@ -48,19 +49,23 @@ const logger = createLogger({
         }),
         new DailyRotateFile(errOption),
     ],
+    handleExceptions: true,
     exceptionHandlers: [new DailyRotateFile(errOption)],
 });
 
 if (!isProduction) {
     logger.add(
         new transports.Console({
-            format: format.combine(
-                format.colorize({ all: true }),
-                format.simple()
-            ),
+            level: 'debug',
+            format: format.combine(format.colorize({ all: true }), format.simple()),
             handleExceptions: true,
         })
     );
 }
 
-export { logger };
+function logErr(e: unknown) {
+    if (typeof e === 'string') logger.error(e);
+    else if (e instanceof Error) logger.error(e.stack);
+}
+
+export { logger, logErr };
